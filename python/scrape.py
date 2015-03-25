@@ -11,7 +11,8 @@ def scrape(seed = "http://stackoverflow.com/questions/15272087/extract-href-valu
     page = requests.get(seed)
     tree = html.fromstring(page.text)
     text = tree.xpath('//p/text()')
-    target.write(' '.join(text))
+    text = unicode(text).replace("\r", " ").replace("\n", " ").replace("\t", '').replace("\"", "")
+    target.write(''.join(text))
 
     if((depth>0)):
         for elt in tree.xpath('//a'):
@@ -27,4 +28,4 @@ def scrape(seed = "http://stackoverflow.com/questions/15272087/extract-href-valu
             except KeyError:
                 pass
  
-scrape()  
+scrape("http://www.yahoo.com")  
