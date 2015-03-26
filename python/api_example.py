@@ -1,4 +1,5 @@
 # simple api example 
+# to be used with python 3
 import urllib.request
 import json
 
