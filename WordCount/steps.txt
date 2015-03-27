@@ -37,6 +37,8 @@ in order to compile this and create a .jar file we must take several steps.
     
     $ hadoop jar wc.jar WordCount /user/"hadoop username"/wordcount/input /user/"hadoop username"/wordcount/output
     
-    
+TO DO:
+1. use api example as output into a file and use above to count
+2. use daves web scrape to do the same
     
     
