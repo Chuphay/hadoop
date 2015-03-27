@@ -1,0 +1,42 @@
+in order to compile this and create a .jar file we must take several steps.
+1.  Once in the proper directory we can compile our mapreduce to create the .jar file, run the following:
+  
+    $ hadoop com.sun.tools.javac.Main WordCount.java 
+    $ jar cf wc.jar WordCount*.class
+
+2.  Next we make sure we have proper input and output directories in our hdfs,
+    to do this we do:
+    
+    $hdfs dfs -mkdir /user/"your hadoop username"/wordcount/input/
+    $hdfs dfs -mkdir /user/"your hadoop username"/wordcount/output/
+    
+    (note that -mkdir is a regular unix command and this is true in general once working in hdfs)
+    We can check that these were created succesfully using the command:
+    
+    $ hdfs dfs -ls /user/"your hadoop username"/wordcount/
+    
+    (once again note the use of ls the same way we would for linux bash)
+    the commands above are used assuming hadoop/bin is in $PATH for the user
+
+3. The next step is to place our input file "file01" in the input folder we created above we do:
+
+  $ hdfs dfs -put ~/hadoop/WordCount/file01 /user/"your hadoop user name"/wordcount/input/
+  
+  We can check if the above was succesfull by:
+  
+  $ bin/hdfs dfs -cat /user/"your hadoop username"/wordcount/input/file01
+  
+  this should output the file
+
+4. Finally we run the program, make sure hadoop and ssh-server are running:
+  
+    $ sudo service ssh restart # to restart ssh
+    $ start-dfs.sh # to start hadoop
+    
+    to run the program:
+    
+    $ hadoop jar wc.jar WordCount /user/"hadoop username"/wordcount/input /user/"hadoop username"/wordcount/output
+    
+    
+    
+    
