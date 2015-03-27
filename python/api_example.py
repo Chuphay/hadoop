@@ -43,6 +43,8 @@ def locu_search_more(loc, cat):
         print(item['name'])
         print((item['phone']))
 
+# function takes in the city of which you wan to make the search 
+
 locu_search('oakland')
 
 
