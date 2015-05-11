@@ -1,4 +1,5 @@
 import sys
+import numpy as np
 
 myDict = {}
 
@@ -15,4 +16,21 @@ for line in sys.stdin:
     except KeyError:
         myDict[word] = {'num': num, 'tot_num': tot_num, 'tf': tf, 'tf_tot': tf_tot}
 
-print myDict
+
+
+tfidf_score = []
+word = []
+for i in myDict:
+    word.append(i)
+    num = float(myDict[i]['num'])
+    bigN = float(myDict[i]['tf_tot'])
+    smallN = float(myDict[i]['tf'])
+    myLog = np.log(bigN/(smallN+1))
+    tfidf_score.append(num*myLog)
+
+
+out = sorted(zip(tfidf_score, word), reverse = True)
+for i in out:
+    print i[1], i[0]
+
+
