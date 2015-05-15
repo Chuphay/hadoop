@@ -19,7 +19,8 @@ for word in words:
 total = 0
 for line in sys.stdin:
     internal_words = line.split()
-    l = len(internal_words) - 1
+    internal_numbers = [int(myNum) for i, myNum in enumerate(internal_words[1:]) if i%2 == 1]
+    l = sum(internal_numbers)
     total += l
     try:
         myWords[internal_words[0]]['tf'] = l
