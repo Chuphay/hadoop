@@ -1,7 +1,10 @@
 import sys
+import os
 
-data = {}
-        
+file_name = os.readlink('/proc/self/fd/0')
+print(file_name)
+
+data = {}        
 for line in sys.stdin:
     x = line.split()
     node = int(x[0])
@@ -15,11 +18,14 @@ clusters = {}
 def make_cluster(node, num_clusters):
     data[node]["cluster"] = num_clusters
     try:
-        check_for_no_area = clusters[num_clusters]["area"] #catching a bug here
+        check_initialized = clusters[num_clusters]["area"] #Is the cluster initialized?
         for i in data[node]["links"]:
-            if(data[i]["cluster"] == num_clusters):
-                clusters[num_clusters]["area"] += 1
-            else:
+            try: 
+                if(data[i]["cluster"] == num_clusters):
+                    clusters[num_clusters]["area"] += 1
+                else:
+                    clusters[num_clusters]["perimeter"].append(i)
+            except KeyError:
                 clusters[num_clusters]["perimeter"].append(i)
         while True:
             try:
@@ -28,6 +34,7 @@ def make_cluster(node, num_clusters):
                 break
 
     except KeyError:
+        #print("initializing a new cluster")
         clusters[num_clusters] = {"area": 0,
                                   "perimeter": [i for i in data[node]['links']]}
 
@@ -48,8 +55,8 @@ def make_cluster(node, num_clusters):
                 make_cluster(link, num_clusters)
             
         except KeyError:
-            print("keyError on :", link)
-        
+            #print("keyError on :", link)
+            pass
         
     
 
