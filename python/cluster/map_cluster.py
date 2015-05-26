@@ -2,7 +2,7 @@ import sys
 import os
 
 file_name = os.readlink('/proc/self/fd/0')
-print(file_name)
+#print(file_name)
 
 data = {}        
 for line in sys.stdin:
@@ -18,7 +18,8 @@ clusters = {}
 def make_cluster(node, num_clusters):
     data[node]["cluster"] = num_clusters
     try:
-        check_initialized = clusters[num_clusters]["area"] #Is the cluster initialized?
+        #check_initialized = clusters[num_clusters]["area"]
+        clusters[num_clusters]["nodes"].append(node)
         for i in data[node]["links"]:
             try: 
                 if(data[i]["cluster"] == num_clusters):
@@ -35,7 +36,7 @@ def make_cluster(node, num_clusters):
 
     except KeyError:
         #print("initializing a new cluster")
-        clusters[num_clusters] = {"area": 0,
+        clusters[num_clusters] = {"area": 0, "nodes": [node],
                                   "perimeter": [i for i in data[node]['links']]}
 
     for link in data[node]['links']:
@@ -68,10 +69,19 @@ for node in data:
         continue
 
     num_clusters += 1
-    if(num_clusters<5):
+    if(num_clusters<10):
         make_cluster(node, num_clusters)
     else:
         print("Too many clusters")
+        sys.exit(1)
 
-print(data)    
-print(clusters)
+#print(file_name, "num_clusters", num_clusters)
+#print(data) 
+for c in clusters:
+    #print(file_name, "cluster_num", c, "area", clusters[c]['area'], "perimeter", len(clusters[c]["perimeter"]))
+    for node in clusters[c]['nodes']:
+        print(file_name, node,'in',c, "area", clusters[c]['area'], "perimeter", len(clusters[c]["perimeter"]))
+    for node in clusters[c]['perimeter']:
+        print(file_name, node,'to',c)
+    #print(clusters[c])
+
