@@ -78,10 +78,7 @@ for node in data:
 #print(file_name, "num_clusters", num_clusters)
 #print(data) 
 for c in clusters:
-    #print(file_name, "cluster_num", c, "area", clusters[c]['area'], "perimeter", len(clusters[c]["perimeter"]))
-    for node in clusters[c]['nodes']:
-        print(file_name, node,'in',c, "area", clusters[c]['area'], "perimeter", len(clusters[c]["perimeter"]))
-    for node in clusters[c]['perimeter']:
-        print(file_name, node,'to',c)
-    #print(clusters[c])
+    print(file_name,"area", clusters[c]['area'],"nodes",clusters[c]["nodes"], "perimeter", clusters[c]["perimeter"])
+
+
 
