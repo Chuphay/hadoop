@@ -1,5 +1,6 @@
 import sys
 import os
+from random import shuffle
 
 file_name = os.readlink('/proc/self/fd/0')
 #print(file_name)
@@ -20,6 +21,7 @@ def make_cluster(node, num_clusters):
     try:
         #check_initialized = clusters[num_clusters]["area"]
         clusters[num_clusters]["nodes"].append(node)
+        shuffle(data[node]["links"]) #add some much needed randomness
         for i in data[node]["links"]:
             try: 
                 if(data[i]["cluster"] == num_clusters):
