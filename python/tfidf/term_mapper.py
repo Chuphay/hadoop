@@ -1,19 +1,20 @@
 import sys
-import os
-import re
 
-file_name = os.environ['mapreduce_map_input_file']
-file_start = os.environ['mapreduce_map_input_start']
-file_length = os.environ['mapreduce_map_input_length']
 
-myDict = {}
+data = {}
 for line in sys.stdin:
-    words = [i for i in re.split(r'\W+',line.lower()) if i]
-    for word in words:
-        try:
-            myDict[word] += 1
-        except KeyError:
-            myDict[word] = 1
+    word, file_name, num = line.split()
+    try:
+        data[word][file_name] = num
+    except KeyError:
+        data[word] = {file_name:num}
 
-for word in myDict:
-    print word, file_name, myDict[word]
+for word in data:
+    out = [word]
+    for file_name in data[word]:
+        out.append(file_name)
+        out.append(data[word][file_name])
+    out = " ".join(out)
+    print out 
+
+    
