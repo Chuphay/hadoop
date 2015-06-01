@@ -5,11 +5,16 @@ data = {}
 for line in sys.stdin:
     word, file_name, num = line.split()
     try:
-        data[word].append(file_name)
+        data[word][file_name] = num
     except KeyError:
-        data[word] = [file_name]
+        data[word] = {file_name:num}
 
-for i in data:
-    print i, data[i]
+for word in data:
+    out = [word]
+    for file_name in data[word]:
+        out.append(file_name)
+        out.append(data[word][file_name])
+    out = " ".join(out)
+    print out 
 
     
