@@ -4,7 +4,9 @@
 #
 #now it works more like this:
 #
-#python do_something.py air_test.txt < airline_1987.csv 
+#python do_some_airplane_mapper.py air_test.txt < 1987.csv 
+#
+#Looks like it takes about 30 seconds for each listing in air_test.txt, so be awar
 #
 ####################################################################
 header = """
@@ -16,7 +18,7 @@ sample2 = """1987,10,12,1,631,630,731,727,PS,1503,NA,60,57,NA,4,1,LAX,SJC,308,NA
 sample3 = """1987,10,30,5,1950,1930,2103,2040,PS,1502,NA,73,70,NA,23,20,SMF,LAX,373,NA,NA,0,NA,0,NA,NA,NA,NA,NA"""
 import sys
 if(len(sys.argv) != 2):
-    print "have to supply a test file"
+    print( "have to supply a test file")
     sys.exit(1)
 test_file  = open(sys.argv[1]).readlines()
 #print test_file
