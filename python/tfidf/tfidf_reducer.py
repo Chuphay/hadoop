@@ -25,7 +25,7 @@ for i in myDict:
     num = float(myDict[i]['num'])
     bigN = float(myDict[i]['tf_tot'])
     smallN = float(myDict[i]['tf'])
-    myLog = np.log(bigN/(smallN+1))
+    myLog = bigN/(smallN+1) #np.log(bigN/(smallN+1))
     tfidf_score.append(num*myLog)
 
 

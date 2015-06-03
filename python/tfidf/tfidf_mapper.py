@@ -23,7 +23,7 @@ for line in sys.stdin:
     l = sum(internal_numbers)
     total += l
     try:
-        myWords[internal_words[0]]['tf'] = l
+        myWords[internal_words[0]]['tf'] += l
     except KeyError:
         pass
 
