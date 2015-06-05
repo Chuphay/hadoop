@@ -6,6 +6,7 @@ test = open("air_test.txt","w")
 i,num = 0, 0
 for line in sys.stdin:
     i += 1
+    print(i)
     if(i == 1):
         continue
     r = random.uniform(0,1)
