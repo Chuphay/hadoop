@@ -25,8 +25,8 @@ for i in myDict:
     num = float(myDict[i]['num'])
     bigN = float(myDict[i]['tf_tot'])
     smallN = float(myDict[i]['tf'])
-    myLog = bigN/(smallN+1) #np.log(bigN/(smallN+1))
-    tfidf_score.append(num*myLog)
+    myLog = np.log(bigN/(smallN+1))
+    tfidf_score.append(myLog*num)
 
 
 out = sorted(zip(tfidf_score, word), reverse = True)
