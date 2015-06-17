@@ -4,7 +4,7 @@ from tweepy import OAuthHandler
 from tweepy import Stream
 import json
 import pickle
-
+import nltk
 
 
 #Variables that contains the user credentials to access Twitter API 
@@ -21,7 +21,7 @@ class StdOutListener(StreamListener):
     def __init__(self, api=None):
         super(StdOutListener, self).__init__()
         self.num_tweets = 0
-        self.data = {'text':[],'pos':[],'neg':[]}
+        self.data = {}
 
 
     def on_data(self, data):
@@ -30,36 +30,32 @@ class StdOutListener(StreamListener):
             tweet = json.loads(data)['text']
 
             print(tweet)
-            self.data['text'].append(tweet)
-            positives = []
-            negatives = []
-            #word_tokens =  nltk.word_tokenize(tweet)
-
-            #for word in word_tokens:
-            #    if(word.lower() in pos_tokens):
-            #        positives.append(word)
-            #    if((word.lower() in neg_tokens)):
-            #        negatives.append(word)
-
-            #self.data['pos'].append(len(positives))
-            #print('positives', self.data['pos'][-1])
-            #self.data['neg'].append(len(negatives))
-            #print('negatives', self.data['neg'][-1])
-            #number_pos += 1
-            #print(x.next())
-            print('--------------------------\n')
-            #f.write('-------------------------\n')
+            word_tokens = nltk.word_tokenize(tweet.lower())
+            #word_tokens = (tweet.lower()).split()
         except:
 
             print('--------------------------exception?\n')
-            #f.write('-------------------------exception?\n')
-            pass
+            word_tokens = []
+        
+        for word in word_tokens:
+            try:
+                self.data[word] += 1
+                print(word)
+            except KeyError:
+                self.data[word] = 1
+                print(word)
+
+
+        print('--------------------------\n')
+
+
         self.num_tweets = self.num_tweets + 1
-        if (self.num_tweets < 100):
+        if (self.num_tweets < 10):
             return True
         else:
             with open('a_giant.pickle', 'wb') as handle:
                 pickle.dump(self.data, handle)
+                print(self.data)
             return False
 
     def on_error(self, status):
@@ -74,4 +70,4 @@ if __name__ == '__main__':
     auth.set_access_token(access_token, access_token_secret)
     stream = Stream(auth, l)
 
-    stream.filter(track=['a','the','of','me','he','she','it','is'], languages = ['en'])
+    stream.filter(track=['a','e','i','o','u'], languages = ['en'])
