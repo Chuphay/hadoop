@@ -4,7 +4,7 @@
 #
 #now it works more like this:
 #
-#python do_some_airplane_mapper.py air_test.txt < 1987.csv 
+#python knn_airplane_maper_not_hadoop_compatible.py air_test.txt < 1987.csv 
 #
 #Looks like it takes about 30 seconds for each listing in air_test.txt, so be awar
 #

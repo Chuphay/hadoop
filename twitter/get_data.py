@@ -28,29 +28,29 @@ class StdOutListener(StreamListener):
 
         try:
             tweet = json.loads(data)['text']
-
-            print(tweet)
-            word_tokens = nltk.word_tokenize(tweet.lower())
+            print(data)
+            #print(tweet)
+            #word_tokens = nltk.word_tokenize(tweet.lower())
             #word_tokens = (tweet.lower()).split()
         except:
 
             print('--------------------------exception?\n')
             word_tokens = []
-        
+        """
         for word in word_tokens:
             try:
                 self.data[word] += 1
-                print(word)
+                #print(word)
             except KeyError:
                 self.data[word] = 1
-                print(word)
+                #print(word)
 
 
         print('--------------------------\n')
-
+        """
 
         self.num_tweets = self.num_tweets + 1
-        if (self.num_tweets < 10):
+        if (self.num_tweets < 10000):
             return True
         else:
             with open('a_giant.pickle', 'wb') as handle:

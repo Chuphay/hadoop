@@ -1,0 +1,91 @@
+% --------------------------------------------------------------
+% This is all preamble stuff that you don't have to worry about.
+% Head down to where it says "Start here"
+% --------------------------------------------------------------
+ 
+\documentclass[12pt,a4paper,twoside]{article}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,listings,graphicx}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{fancyhdr}
+ 
+\pagestyle{fancy}
+\fancyhf{}
+
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\set}[1]{\ensuremath{\left\{{#1}\right\}}}
+\newcommand{\bracket}[1]{\ensuremath{\left [{#1}\right]}}
+\newcommand{\brocket}[1]{\ensuremath{\left\langle{#1}\right\rangle}}
+\newcommand{\norm}[1]{\left\|{#1}\right\|}
+\newcommand{\ceil}[1]{\ensuremath{\left\lceil {#1}\right\rceil}}
+\newcommand{\floor}[1]{\ensuremath{\left\lfloor {#1}\right\rfloor}}
+\newcommand{\paren}[1]{\ensuremath{\left({#1}\right)}}
+ 
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newcommand{\solution}{\medskip\noindent{\textit{Solution:}}\quad}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=R,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+} 
+
+\lhead{\color{Maroon}}
+\rhead{\color{Maroon}}
+\chead{\color{Maroon}Tentative 10 Week Schedule}
+\cfoot{\thepage}
+
+\begin{document}
+
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+
+Week 1 : Get the group together. Get the cluster operational\\
+
+
+Week 2 : Start collecting data and start building the database. Learn how to query the database.\\
+
+
+Week 3 : Generate keywords from tweets: tf-idf, chi-squared, ANOVA, ... \\
+
+
+Week 4 : Generate clusters of tweets based on their keywords: Expectation Maximization algorithm, BIRCH algorithm, ...\\
+
+
+Week 5 : Generate reasonable summaries using an "expert AI" system\\
+
+
+Week 6 : Generate reasonable summaries using HMM (Hidden Markov Models)\\
+
+
+Week 7 : Other research Interests. i.e. finding trending topics, finding which tweets carry a negative or positive message, ...\\
+
+
+Week 8 : Catch-up on anything, or take a vacation?\\
+
+
+Week 9 and 10 : Make a poster/paper\\
+
+
+
+
+\end{document}
