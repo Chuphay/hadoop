@@ -13,7 +13,7 @@ lines = ["This is a sentence.", "The elements of water are hydrogen and oxygen."
 tag_dict = defaultdict(list)
 
 for text in lines:
-    print text
+    print (text)
     text = nltk.word_tokenize(text)
     tagged_sent = nltk.pos_tag(text)
     # Put tags and words into the dictionary
@@ -24,7 +24,7 @@ for text in lines:
             tag_dict[tag].append(word)
 
 #print tags
-s = "\n  S -> NP VP\n  NP -> Det NN\n  PP -> P NP\n  VP -> VBZ\n" 
+s = "\n  S -> NP VP\n  NP -> DT NN\n  PP -> P NP\n  VP -> VBZ\n" 
 for tag, words in tag_dict.items():
     if (tag == "."):
         continue
@@ -37,14 +37,16 @@ for tag, words in tag_dict.items():
         else:
             s += "| \"" + word + "\""
     s += "\n"
-print s
+print (s)
 
 from nltk import CFG
 grammar = CFG.fromstring(s)
-for sentence in generate(grammar, n =3):
-    print "SENTENCE!!!"
-    print " ".join(sentence)
 
+for sentence in generate(grammar):
+    #http://www.nltk.org/howto/generate.html
+    print( "SENTENCE!!!")
+    print(" ".join(sentence))
+    pass
 
 S = nltk.Nonterminal('S')
 ###grammar = nltk.induce_pcfg(S, allProductions)
