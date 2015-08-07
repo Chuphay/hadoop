@@ -26,9 +26,10 @@ for text in lines:
 #print tags
 s = """ 
 S -> NP VP  
-NP -> DT NN | IN NN | PRP 
-VP -> VB | VP NP
-VB -> VBD | VBZ | VBP
+NP -> DT NN | PRP | IN NN | NN  
+VP -> VB | VP NP | VP PP
+VB -> VBD | VBZ | VBP  
+PP -> IN NP 
 """ 
 for tag, words in tag_dict.items():
     if (tag == "."):
@@ -52,7 +53,7 @@ n = 0
 from random import shuffle
 sentences = list(generate(grammar, depth = 6))
 shuffle(sentences)
-for sentence in sentences[:10]:
+for sentence in sentences[:20]:
     #http://www.nltk.org/howto/generate.html
     #print( "SENTENCE!!!")
     n += 1
