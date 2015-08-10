@@ -1,6 +1,7 @@
 import sys 
 import re
 import numpy as np
+import pickle
 
 
 
@@ -13,25 +14,17 @@ if len(sys.argv) > 1:
         init = True
         update = True
 
-
-myDict = {}
-numbers = "\d+"
-d = 0
-
-
-myFile = open("idf_score.txt","w")
-import pickle
 if(init):
     out = {}
     out["daves Metadata"] = 0
 else:
     out = pickle.load(open("idf.pickle"))
-#print out
-
 
 other_inverted = {}
 easy_search = {}
+myDict = {}
 
+num_tweets = 0
 for line in sys.stdin:
     temp = re.search('^\((\d+), (.*)\)$', line)
     try:
@@ -41,7 +34,7 @@ for line in sys.stdin:
         text = text[2:]
         text = text[:-1]
         text = text.replace("\\n","\n")
-        #print str(text)
+
     except AttributeError:
         print "Error"
         num = -1
@@ -50,8 +43,8 @@ for line in sys.stdin:
 
     words = re.split(" +|\n", text)
 
-    tfidfScores = []
-    for word in words: #tempDict:
+    AnovaScores = []
+    for word in words:
         try:
             myDict[word].append(num)
         except KeyError:
@@ -82,21 +75,3 @@ for line in sys.stdin:
                 other_inverted[tfidfScores[i][1]] = [num]
         except IndexError:
             pass
-
-
-print out["daves Metadata"], d
-
-
-out["daves Metadata"] += d
-
-
-for key in myDict:
-    try:
-        out[key] += len(set(myDict[key]))
-    except KeyError:
-        out[key] = len(set(myDict[key]))
-    
-if update:
-    pickle.dump(out, open("idf.pickle", "wb"))
-pickle.dump(other_inverted, open("other_inverted.pickle", "wb"))
-pickle.dump(easy_search, open("easy_search.pickle", "wb"))
