@@ -1,18 +1,27 @@
 myFile = open("annotated.csv").readlines()
 
-data = {}
+data = []
 i = 0
 for line in myFile:
-    print(line)
     if line[0] == '[':
         i += 1
         line = line.replace(",,","")        
         line = line.replace("[,","")
         line = line.replace(",]","")
+        line = line.replace("'","")
         line = line.strip()
-        l = line.split(",")
-        data[i] = l
+        split_line = line.split(",")
+        l = len(split_line)
+        if(l%2 != 0):
+            print "error!!!"
+        temp = [] 
+        for j in range(int(l/2)): #python 2/3 hack
+            temp.append((split_line[j],split_line[j+1]))
+            
+        data.append(temp)
     else:
         pass
-print( data)
+
+
+print data
 
