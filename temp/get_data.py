@@ -71,4 +71,5 @@ if __name__ == '__main__':
     auth.set_access_token(access_token, access_token_secret)
     stream = Stream(auth, l)
 
-    stream.filter(track = ['a','e','i','o','u'], languages = ['en'])
+    #stream.filter(track = ['a','e','i','o','u'], languages = ['en'])
+    stream.filter(locations = [-122.75,36.8,-121.75, 37.8], languages = ['en'])
