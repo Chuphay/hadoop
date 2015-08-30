@@ -3,19 +3,23 @@
 import nltk
 from nltk.parse.generate import generate
 from collections import defaultdict
+import pickle
 
-text = nltk.word_tokenize("A car has a door.")
-tags = [None,None]
-tags[0] = nltk.pos_tag(text)
+clusters = pickle.load(open("clusters.pickle"))
+easy_search = pickle.load(open("easy_search.pickle"))
 
-#myFile = open("text.txt").readlines()
+cluster_num = 77
+lines = []
+for l in clusters[cluster_num]['tweet']:
+    lines.append(easy_search[l]['text'].lower())
 
-lines = ["This is a long sentence.", "I love One direction", "The elements of water are hydrogen and oxygen.","the fat dog slowly ran.","I hope you did not notice me","It is in the jar.", "the boy quickly skipped across the frozen pond", "today I went to the grocery store for a dozen eggs", "I like to eat potatoes while riding a red bike", "i do not have any plans for monday yet", "I saw the cute boy I like but I do not think he saw me", "I have too much time on my small hands"]
+print lines
+
 
 tag_dict = defaultdict(list)
 
 for text in lines:
-    print (text)
+    #print (text)
     text = nltk.word_tokenize(text)
     tagged_sent = nltk.pos_tag(text)
     # Put tags and words into the dictionary
@@ -25,7 +29,6 @@ for text in lines:
         elif word not in tag_dict.get(tag):
             tag_dict[tag].append(word)
 
-#print tags
 s = """
 
 S -> NP VP | VP NP
@@ -43,6 +46,18 @@ ADJP -> JJ
 for tag, words in tag_dict.items():
     if (tag == "."):
         continue
+    if (tag == "``"):
+        continue
+    if (tag == "''"):
+        continue
+    if (tag == ","):
+        continue
+    if (tag == ":"):
+        continue
+    if (tag == "-NONE-"):
+        continue
+
+
     if(tag ==  "PRP$"):
       tag = "PRPs"
     s +=  tag + " -> "
@@ -54,6 +69,7 @@ for tag, words in tag_dict.items():
         else:
             s += "| \"" + word + "\""
     s += "\n"
+
 print (s)
 
 from nltk import CFG
@@ -65,11 +81,21 @@ from random import shuffle
 sentences = list(generate(grammar, depth = 5))
 shuffle(sentences)
 
-for sentence in sentences[:10]:
+
+from simple_sent_verifier import check_this, create_bigram
+create_bigram(lines)
+
+score = 0
+
+for sentence in sentences:
     #http://www.nltk.org/howto/generate.html
     #print( "SENTENCE!!!")
     n += 1
-    print(" ".join(sentence))
+    s = " ".join(sentence)
+    temp =  check_this(s)
+    if(temp>=score):
+        print s, temp
+        score = temp
     #if(n>10):
     #    break
-
+print check_this("i think i drank")
