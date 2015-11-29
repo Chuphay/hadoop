@@ -50,7 +50,7 @@ class StdOutListener(StreamListener):
         """
 
         self.num_tweets = self.num_tweets + 1
-        if (self.num_tweets < 10):
+        if (self.num_tweets < 50000):
             return True
         else:
             with open('a_giant.pickle', 'wb') as handle:
@@ -72,4 +72,5 @@ if __name__ == '__main__':
     stream = Stream(auth, l)
 
     #stream.filter(track = ['a','e','i','o','u'], languages = ['en'])
-    stream.filter(locations = [-122.75,36.8,-121.75, 37.8], languages = ['en'])
+    #stream.filter(locations = [-122.75,36.8,-121.75, 37.8], languages = ['en'])
+    stream.filter(locations = [-125, 25, -65, 50], languages = ['en'])
